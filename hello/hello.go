@@ -11,6 +11,7 @@ const germanHelloPrefix = "Servus, "
 const spanishHelloPrefix = "Hola, "
 
 // Hello returns the first statement
+// Uppercase public function
 func Hello(name string, language string) string {
 	if name == "" {
 		name = "World"
@@ -19,6 +20,7 @@ func Hello(name string, language string) string {
 	return greetingPrefix(language) + name + "!"
 }
 
+// Lowercase private function
 func greetingPrefix(language string) (prefix string) {
 	switch language {
 	case french:
