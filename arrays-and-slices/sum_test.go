@@ -1,6 +1,9 @@
-package sum
+package sums
 
-import "testing"
+import (
+	"reflect"
+	"testing"
+)
 
 func TestSum(t *testing.T) {
 
@@ -15,4 +18,17 @@ func TestSum(t *testing.T) {
 		}
 	})
 
+}
+
+func TestSumAll(t *testing.T) {
+	numbers := []int{1, 1, 1}
+	nums := []int{0, 2, 9}
+
+	got := SumAll(numbers, nums)
+	want := []int{3, 11}
+
+	// reflect.DeepEqual is not type safe
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("got %v want %v", got, want)
+	}
 }
