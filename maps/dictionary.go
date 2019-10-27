@@ -64,3 +64,8 @@ func (d Dictionary) Update(word, definition string) error {
 
 	return nil
 }
+
+// Delete word method for Dictionary type
+func (d Dictionary) Delete(word string) {
+	delete(d, word)
+}
