@@ -18,6 +18,11 @@ func (d Dictionary) Search(word string) (string, error) {
 	return definition, nil
 }
 
+// Add method for Dictionary type
+func (d Dictionary) Add(word string, definition string) {
+	d[word] = definition
+}
+
 // Search function
 func Search(dictionary map[string]string, word string) string {
 	return dictionary[word]
