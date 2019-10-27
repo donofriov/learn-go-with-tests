@@ -5,8 +5,9 @@ type Dictionary map[string]string
 
 // ErrNotFound, ErrWordExists global error message variable
 const (
-	ErrNotFound   = Err("could not find the word you were looking for")
-	ErrWordExists = Err("cannot add word because it already exists")
+	ErrNotFound         = Err("could not find the word you were looking for")
+	ErrWordExists       = Err("cannot add word because it already exists")
+	ErrWordDoesNotExist = Err("cannot update word because it does not exist")
 )
 
 // Err custom string type
@@ -27,6 +28,11 @@ func (d Dictionary) Search(word string) (string, error) {
 	return definition, nil
 }
 
+// Search function
+func Search(dictionary map[string]string, word string) string {
+	return dictionary[word]
+}
+
 // Add method for Dictionary type
 func (d Dictionary) Add(word string, definition string) error {
 	_, err := d.Search(word)
@@ -43,7 +49,18 @@ func (d Dictionary) Add(word string, definition string) error {
 	return nil
 }
 
-// Search function
-func Search(dictionary map[string]string, word string) string {
-	return dictionary[word]
+// Update word definition method for Dictionary type
+func (d Dictionary) Update(word, definition string) error {
+	_, err := d.Search(word)
+
+	switch err {
+	case ErrNotFound:
+		return ErrWordDoesNotExist
+	case nil:
+		d[word] = definition
+	default:
+		return err
+	}
+
+	return nil
 }
