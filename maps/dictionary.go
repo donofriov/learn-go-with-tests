@@ -1,12 +1,21 @@
 package dictionary
 
-import "errors"
-
 // Dictionary type
 type Dictionary map[string]string
 
-// ErrNotFound global error message
-var ErrNotFound = errors.New("could not find the word you were looking for")
+// ErrNotFound, ErrWordExists global error message variable
+const (
+	ErrNotFound   = Err("could not find the word you were looking for")
+	ErrWordExists = Err("cannot add word because it already exists")
+)
+
+// Err custom string type
+type Err string
+
+// Error method for Err type
+func (e Err) Error() string {
+	return string(e)
+}
 
 // Search method for Dictionary type
 func (d Dictionary) Search(word string) (string, error) {
@@ -19,8 +28,19 @@ func (d Dictionary) Search(word string) (string, error) {
 }
 
 // Add method for Dictionary type
-func (d Dictionary) Add(word string, definition string) {
-	d[word] = definition
+func (d Dictionary) Add(word string, definition string) error {
+	_, err := d.Search(word)
+
+	switch err {
+	case ErrNotFound:
+		d[word] = definition
+	case nil:
+		return ErrWordExists
+	default:
+		return err
+	}
+
+	return nil
 }
 
 // Search function
