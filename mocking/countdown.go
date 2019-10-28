@@ -7,26 +7,62 @@ import (
 	"time"
 )
 
+// Sleeper interface
 type Sleeper interface {
 	Sleep()
 }
 
+// SpySleeper struct
 type SpySleeper struct {
 	Calls int
 }
 
+// Sleep method for SpySleeper
 func (s *SpySleeper) Sleep() {
 	s.Calls++
 }
 
-type DefaultSleeper struct{}
-
-func (d *DefaultSleeper) Sleep() {
-	time.Sleep(1 * time.Second)
+// SpyTime struct
+type SpyTime struct {
+	durationSlept time.Duration
 }
 
-const finalWord = "Go!"
+// Sleep method for SpyTime
+func (s *SpyTime) Sleep(duration time.Duration) {
+	s.durationSlept = duration
+}
+
+// ConfigurableSleeper struct
+type ConfigurableSleeper struct {
+	duration time.Duration
+	sleep    func(time.Duration)
+}
+
+// Sleep method for ConfigurableSleeper
+func (c *ConfigurableSleeper) Sleep() {
+	c.sleep(c.duration)
+}
+
+// CountdownOperationsSpy struct
+type CountdownOperationsSpy struct {
+	Calls []string
+}
+
+// Sleep method for CountdownOperationsSpy
+func (s *CountdownOperationsSpy) Sleep() {
+	s.Calls = append(s.Calls, sleep)
+}
+
+// Write method for CountdownOperationsSpy
+func (s *CountdownOperationsSpy) Write(p []byte) (n int, err error) {
+	s.Calls = append(s.Calls, write)
+	return
+}
+
 const countdownStart = 3
+const finalWord = "Go!"
+const sleep = "sleep"
+const write = "write"
 
 // Countdown function
 func Countdown(out io.Writer, sleeper Sleeper) {
@@ -40,6 +76,6 @@ func Countdown(out io.Writer, sleeper Sleeper) {
 }
 
 func main() {
-	sleeper := &DefaultSleeper{}
+	sleeper := &ConfigurableSleeper{1 * time.Second, time.Sleep}
 	Countdown(os.Stdout, sleeper)
 }
