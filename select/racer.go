@@ -8,17 +8,18 @@ import (
 // Racer function takes in two URLs
 // returns the one with the fastest response time
 func Racer(firstURL, secondURL string) (winner string) {
-	startFirst := time.Now()
-	http.Get(firstURL)
-	firstDuration := time.Since(startFirst)
-
-	startSecond := time.Now()
-	http.Get(secondURL)
-	secondDuration := time.Since(startSecond)
+	firstDuration := measureResponseTime(firstURL)
+	secondDuration := measureResponseTime(secondURL)
 
 	if firstDuration < secondDuration {
 		return firstURL
 	}
 
 	return secondURL
+}
+
+func measureResponseTime(url string) time.Duration {
+	start := time.Now()
+	http.Get(url)
+	return time.Since(start)
 }
