@@ -6,15 +6,22 @@ import (
 	"time"
 )
 
-// Racer function takes in two URLs
-// returns the one with the fastest response time
+var tenSecondTimeout = 10 * time.Second
+
+// Racer function takes in two urls and returns the one with the fastest response
 func Racer(a, b string) (winner string, error error) {
+	return ConfigurableRacer(a, b, tenSecondTimeout)
+}
+
+// ConfigurableRacer function takes in two URLs and a timeout length
+// returns the one with the fastest response time or an error
+func ConfigurableRacer(a, b string, timeout time.Duration) (winner string, error error) {
 	select {
 	case <-ping(a):
 		return a, nil
 	case <-ping(b):
 		return b, nil
-	case <-time.After(10 * time.Second):
+	case <-time.After(timeout):
 		return "", fmt.Errorf("timed out waiting for %s and %s", a, b)
 	}
 }
