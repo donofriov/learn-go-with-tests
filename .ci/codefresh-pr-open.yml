@@ -48,6 +48,7 @@ steps:
     title: Deploying to staging environment
     commands:
       - printenv
+      - echo $CF_REPO_NAME is the repo name
       - echo $CF_PULL_REQUEST_NUMBER is the pr number
       - helm init -c
       - kubectl config use-context private-east1@podium-devstage
