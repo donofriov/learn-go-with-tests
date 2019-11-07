@@ -33,8 +33,8 @@ steps:
     title: "Pushing image to production cr"
     stage: push
     type: "push"
-    image_name: '${{CF_REPO_NAME}}'
-    registry: donofriov/learn-go-with-tests
+    image_name: 'donofriov/${{CF_REPO_NAME}}'
+    registry: cfcr
     candidate: ${{build_image}}
     tag: "${{CF_REVISION}}"
     when:
