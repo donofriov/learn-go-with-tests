@@ -1,0 +1,38 @@
+NAME:   learn-go-with-tests-pr-12
+LAST DEPLOYED: Thu Nov  7 13:54:32 2019
+NAMESPACE: devops
+STATUS: DEPLOYED
+
+RESOURCES:
+==> v1/ConfigMap
+NAME                 AGE
+learn-go-with-tests  0s
+
+==> v1/Deployment
+NAME                 AGE
+learn-go-with-tests  0s
+
+==> v1/Pod(related)
+NAME                                  AGE
+learn-go-with-tests-75c55bb669-2p2nl  21m
+learn-go-with-tests-75c55bb669-5hfwk  0s
+learn-go-with-tests-75c55bb669-rdlsr  0s
+
+==> v1/Service
+NAME                 AGE
+learn-go-with-tests  0s
+
+==> v1beta1/Ingress
+NAME                 AGE
+learn-go-with-tests  0s
+
+==> v2beta2/HorizontalPodAutoscaler
+NAME                 AGE
+learn-go-with-tests  0s
+
+
+NOTES:
+//TODO: Make notes print the staging url when deploying staging
+
+1. You can visit your application by visiting this URL:
+  http://app.example.com

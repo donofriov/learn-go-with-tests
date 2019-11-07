@@ -1,0 +1,4 @@
+apiVersion: v1
+description: learn go with tests chart
+name: learn-go-with-tests
+version: 0.1.0
