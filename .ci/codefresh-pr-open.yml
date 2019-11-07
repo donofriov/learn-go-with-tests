@@ -34,7 +34,7 @@ steps:
     stage: push
     type: "push"
     image_name: '${{CF_REPO_NAME}}'
-    registry: ADDOExampleRegistry
+    registry: learngo
     candidate: ${{build_image}}
     tag: "${{CF_REVISION}}"
     when:
