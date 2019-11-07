@@ -52,15 +52,15 @@ steps:
       - echo $CF_PULL_REQUEST_TARGET is the pr number
       - helm init -c
       - kubectl config use-context private-east1@podium-devstage
-      - if helm ls | grep -q ${{CF_REPO_NAME}}-pr-${{CF_PULL_REQUEST_TARGET}}; then helm delete --purge ${{CF_REPO_NAME}}-pr-${{CF_PULL_REQUEST_TARGET}}; else echo "${{CF_REPO_NAME}}-pr-${{CF_PULL_REQUEST_TARGET}} wasn't found in the cluster"; fi  
+      - if helm ls | grep -q ${{CF_REPO_NAME}}-pr-12; then helm delete --purge ${{CF_REPO_NAME}}-pr-12; else echo "${{CF_REPO_NAME}}-pr-12 wasn't found in the cluster"; fi  
       - >-
         helm install  
-        --name ${{CF_REPO_NAME}}-pr-${{CF_PULL_REQUEST_TARGET}} .
-        --set image.version=${{CF_REVISION}},image.name=${{CF_REPO_NAME}},environment=pr-${{CF_PULL_REQUEST_TARGET}}
+        --name ${{CF_REPO_NAME}}-pr-12 .
+        --set image.version=${{CF_REVISION}},image.name=${{CF_REPO_NAME}},environment=pr-12
         --namespace devops > output.data
       - cat output.data
       - sleep 5
-      - kubectl rollout status deployment/${{CF_REPO_NAME}}-pr-${{CF_PULL_REQUEST_TARGET}} --namespace=devops --timeout 10s
+      - kubectl rollout status deployment/${{CF_REPO_NAME}}-pr-12 --namespace=devops --timeout 10s
       - "cf_export DEPLOYMENT_URL=$(cat output.data | grep http:// | sed 's/\"//g' | xargs)"
     when:
       steps:
