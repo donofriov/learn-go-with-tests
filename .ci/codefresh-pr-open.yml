@@ -50,7 +50,7 @@ steps:
       - printenv
       - echo $CF_PULL_REQUEST_NUMBER is the pr number
       - helm init -c
-      - kubectl config use-context devops
+      - kubectl config use-context gke_podium-devstage_us-east1_private-east1
       - if helm ls | grep -q ${{CF_REPO_NAME}}-pr-${{CF_PULL_REQUEST_NUMBER}}; then helm delete --purge ${{CF_REPO_NAME}}-pr-${{CF_PULL_REQUEST_NUMBER}}; else echo "${{CF_REPO_NAME}}-pr-${{CF_PULL_REQUEST_NUMBER}} wasn't found in the cluster"; fi  
       - >-
         helm install  
